@@ -20,6 +20,7 @@ class Biome {
 }
 
 void initialiseBiomes(){
+  println("- - - - -");
   println("PREPARING " + biomeCount + " biomes for initialisation!");
   biomes = new Biome[biomeCount];
   
@@ -42,7 +43,7 @@ void initialiseBiomes(){
 }
 
 void generateBiomes(){
-  
+  println("- - - - -");
   for (int a = 0; a < biomeCount; a++){
     println("BIOME " + a + " generated!");
     //generate settings for each biome
