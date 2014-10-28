@@ -1,4 +1,18 @@
 void draw() {
+  //drawTravellers();
+
+  if (programStarted)
+  {
+    drawLines();
+    //drawLinesLeft();
+  }
+
+  if (frameCount % FPS == 0 && programStarted) {
+    //println(hour() + "_" + minute() + "_" + second() + "_travellers: " + travellerListSize);
+  }
+}
+
+void drawTravellers() {
   int travellerListSize = travellerList.size();
   for (int n = 0; n < travellerListSize; n++) {
     Traveller traveller = (Traveller) travellerList.get(n);
@@ -8,10 +22,6 @@ void draw() {
     traveller.modColor();
     traveller.move2();
     traveller.drop();
-  }
-  
-  if (frameCount % FPS == 0 && programStarted) {
-    println(hour() + "_" + minute() + "_" + second() + "_travellers: " + travellerListSize);
   }
 }
 

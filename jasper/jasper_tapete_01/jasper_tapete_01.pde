@@ -1,17 +1,25 @@
 // --- SETTINGS ---
-final int canvasWidth = 1000;
-final int canvasHeight = 500;
+final int canvasWidth = 1200;
+final int canvasHeight = 600;
 
-final color canvasColor = color(255, 255, 255);
+final color canvasColor = color(255);
 
 final int FPS = 50;
 
-int biomeCount = 8;
+float stepFactor = 1;
+float wierdFactor = 1.1;
+float opacityGuide = 3;
+float strokeFactor = 12.2;
+
+
+float opacityFactor = 0;
+
+int biomeCount = 3;
 
 
 
 boolean sketchFullScreen() {
-  return false;
+  return true;
 }
 
 // --- VARIABLES ---
@@ -26,6 +34,7 @@ Biome[] biomes;
 void setup() {
   size((int)(canvasWidth), (int)(canvasHeight));
   frameRate(FPS);
+  smooth();
   background(canvasColor);
   
   travellerList = new ArrayList();
@@ -52,6 +61,7 @@ void keyPressed() {
     if (!programStarted) {
       generateBiomes();
       background(canvasColor);
+      drawLines();
       localizeBiomes();
       textHotkeys();
     }
