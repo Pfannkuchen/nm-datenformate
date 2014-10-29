@@ -147,6 +147,19 @@ int helpNumber = (int)random(0,biomeCount);
   }
 }
 
+void drawTravellers() {
+  int travellerListSize = travellerList.size();
+  for (int n = 0; n < travellerListSize; n++) {
+    Traveller traveller = (Traveller) travellerList.get(n);
+    if (dist(traveller.tPosX, traveller.tPosY, traveller.targetX, traveller.targetY) < 50) {
+      traveller.newTarget2();
+    }
+    traveller.modColor();
+    traveller.move2();
+    traveller.drop();
+  }
+}
+
 void clearTravellerList() {
   int travellerListSize = travellerList.size();
 

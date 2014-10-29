@@ -1,33 +1,50 @@
 // --- SETTINGS ---
-final int canvasWidth = 1200;
-final int canvasHeight = 600;
+final int canvasWidth = 1000;           // breite
+final int canvasHeight = 600;           // hoehe
 
-final color canvasColor = color(255);
+final color canvasColor = color(255);   // starthintergrund
 
-final int FPS = 50;
+String saveLocation = "03_mittwoch/";
 
+final int FPS = 50;                     // maximale bilder pro sekunde
+
+int biomeCount = 5;                    // anzahl biome (klein z.b. 25)
+float biomeSizeFactor = 1;            // standard = 1 (klein z.b. 0.1
+
+float radialFactor = 5;                 // main draw biome size multiplier
+float radialDecrement = 0.15;           // main draw steps
+float radialStrokeSize = 0.5;           // main draw line weight
+float radialOpacity = 10;               // main draw line opacity 0 - 255
+float radialAnomaly = 1;                // amplitude eines rings
+float radialSteps = 360;                // main draw lines in all directions 0 - 360
+float radialColorChange = 60;           // minimum range for color mutation
+float radialCritColor = 5;              // when color change crits, factor
+
+// --- VARIABLES ---
+boolean programStarted = false;
+float radialIndex;
+float opacityFactor = 0;
+int butterflyPhase = 1;
+Biome[] biomes;
+
+
+
+
+
+
+
+// --- OLD ---
 float stepFactor = 1;
 float wierdFactor = 1.1;
 float opacityGuide = 3;
 float strokeFactor = 12.2;
 
-
-float opacityFactor = 0;
-
-int biomeCount = 3;
-
-
+int count = 0;
+ArrayList travellerList;
 
 boolean sketchFullScreen() {
-  return true;
+  return false;
 }
-
-// --- VARIABLES ---
-int count = 0;
-boolean programStarted = false;
-
-ArrayList travellerList;
-Biome[] biomes;
 
 
 
@@ -46,9 +63,9 @@ void setup() {
 void textHotkeys() {
   textSize(16);
   fill(0);
-  text("s = save frame at runtime", 50, (canvasHeight/2)-30);
-  text("d = new biomes", 50, (canvasHeight/2));
-  text("f = start program", 50, (canvasHeight/2)+30);
+  text("s = save frame", 10, (canvasHeight/2)-30);
+  text("d = new biomes", 10, (canvasHeight/2));
+  text("f = start program", 10, (canvasHeight/2)+30);
 }
 
 void keyPressed() {
@@ -61,24 +78,36 @@ void keyPressed() {
     if (!programStarted) {
       generateBiomes();
       background(canvasColor);
-      drawLines();
+      drawButterfly();
       localizeBiomes();
       textHotkeys();
+    }
+    else{
+      generateBiomes();
+      background(canvasColor);
+      //drawButterfly();
+      localizeBiomes();
+      textHotkeys();
+      programStarted = false;
+      butterflyPhase = 1;
     }
   }
 
   if (key == 'f') {
     if (!programStarted) {
       background(canvasColor);
+      radialIndex = radialFactor;
       programStarted = true;
+      butterflyPhase = 1;
       //localizeBiomes();
-      TESTINIT();
+      //TESTINIT();
     }
   }
 }
 
 void saveCanvas() {
   String fileName = "";
+  fileName += saveLocation;
   fileName += nf(year(), 4) + "_" + nf(month(), 2) + "_" + 
     nf(day(), 2) + "_" + nf(hour(), 2) + "_" + 
     nf(minute(), 2) + "_" + nf(second(), 2) + "_" + 

@@ -1,10 +1,9 @@
 void draw() {
-  //drawTravellers();
-
   if (programStarted)
   {
-    drawLines();
-    //drawLinesLeft();
+    //drawTravellers();
+    //drawLines();
+    drawButterfly();
   }
 
   if (frameCount % FPS == 0 && programStarted) {
@@ -12,23 +11,10 @@ void draw() {
   }
 }
 
-void drawTravellers() {
-  int travellerListSize = travellerList.size();
-  for (int n = 0; n < travellerListSize; n++) {
-    Traveller traveller = (Traveller) travellerList.get(n);
-    if (dist(traveller.tPosX, traveller.tPosY, traveller.targetX, traveller.targetY) < 50) {
-      traveller.newTarget2();
-    }
-    traveller.modColor();
-    traveller.move2();
-    traveller.drop();
-  }
-}
-
 void localizeBiomes() {
   for (int i = 0; i < biomeCount; i++) {
     noFill();
-    stroke(biomes[i].bRed, biomes[i].bBlue, biomes[i].bGreen);
+    stroke(biomes[i].bRed, biomes[i].bGreen, biomes[i].bBlue);
     strokeWeight(biomes[i].bSize/10);
     point(biomes[i].bPosX, biomes[i].bPosY);
 
